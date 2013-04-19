@@ -1,0 +1,66 @@
+<title>Listview</title>
+<body>
+<div data-role="page" class="type-home">
+    <div data-role="header">
+        <h1>Cars</h1>
+    </div>
+    <script type="text/template" id="container">
+	(function(){dust.register("intro",body_0);function body_0(chk,ctx){return chk.write("<div><ul><li>").reference(ctx.get("title"),ctx,"h").write("</li>").section(ctx.get("names"),ctx,{"block":body_1},null).write("</ul></div></div>");}function body_1(chk,ctx){return chk.write("<li data-name=\\\"").reference(ctx.get("name"),ctx,"h").write("\\\"><a href=\\\"").reference(ctx.get("name"),ctx,"h").write("\\\"> <h4><img src=\\\"").reference(ctx.get("flags"),ctx,"h").write("\\\">Name :").reference(ctx.get("name"),ctx,"h").write("</h4><p>").reference(ctx.get("description"),ctx,"h").write("</p></a></li>\n");}return body_0;})();
+    </script>
+</div>
+</body>
+<script src = "http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript">
+<script src="https://raw.github.com/linkedin/dustjs/master/lib/dust.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script type = "text/javascript">
+
+$(document).ready(function () {
+
+//var template = "<div><ul><li>{title}</li>{#names}<li data-name=\"{name}\"><a href=\"{name}\"> <h4><img src=\"{flags}\">Name :{name}</h4><p>{description}</p></a></li>{~n}{/names}</ul></div></div>";
+
+    //var compiled = dust.compile(template, "intro");
+var compiled = $('#container').html();
+    dust.loadSource(compiled);
+
+    dust.render("intro", {
+        "title": "Available Cars",
+            "names": [{
+            "name": "Ford",
+                "image": "./images/ford.png",
+                "flags": "./images/us.png",
+                "description": "Make Average Cars",
+                "detail": [{
+                "Profile": "Big US company",
+                    "Background": "Bad"
+            }]
+        }, {
+            "name": "BWM",
+                "image": "./images/bmw.png",
+                "flags": "./images/gm.png",
+                "description": "Make Great Cars",
+                "detail": [{
+                "Profile": "MediumGermancompany",
+                    "Background": "Good"
+            }]
+        }, {
+            "name": "VW",
+                "image": "./images/vw.png",
+                "flags": "./images/gm.png",
+                "description": "MakeGoodCars",
+                "detail": [{
+                "Profile": "LargeGermancompany",
+                    "Background": "Very Bad"
+            }]
+        }]
+    }, function (err, out) {
+
+        $('#container').html(out).trigger("create");
+
+    });
+
+});
+</script>
+
+
+
